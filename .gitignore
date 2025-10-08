@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Package manager
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# Testing
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.pytest_cache/
+
+# Miscellaneous
+*.bak
+*.swp
+*~

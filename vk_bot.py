@@ -8,12 +8,14 @@ import os
 
 load_dotenv()
 
+
 vk_session = vk_api.VkApi(token=os.getenv('VK_GROUP_TOKEN'))
 vk_api = vk_session.get_api()
 longpoll = VkLongPoll(vk_session)
 
 project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
 language_code = 'ru-RU'
+
 
 def detect_intent_text(project_id, session_id, text, language_code):
     session_client = dialogflow.SessionsClient()

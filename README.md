@@ -44,7 +44,7 @@ sudo systemctl restart telegram-bot
 sudo systemctl restart vk-bot
 ```
 
-Развёртывание
+## Развёртывание
 
 Боты развёрнуты на DigitalOcean VPS (IP: 178.128.196.169) с использованием systemd-сервисов.
 Мониторинг ошибок настроен: при сбоях уведомления отправляются в Telegram-лог-бот (требуется LOG_BOT_TOKEN и LOG_CHAT_ID).

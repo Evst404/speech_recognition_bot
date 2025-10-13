@@ -1,15 +1,10 @@
 from google.cloud import dialogflow
-from dotenv import load_dotenv
 import os
 import json
+from typing import List
 
 
-load_dotenv()
-
-project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
-
-
-def create_intent(project_id, display_name, training_phrases, message_texts):
+def create_intent(project_id: str, display_name: str, training_phrases: List[str], message_texts: List[str]) -> str:
     intents_client = dialogflow.IntentsClient()
     parent = dialogflow.AgentsClient.agent_path(project_id)
     training_phrases_parts = [{"parts": [{"text": phrase}]} for phrase in training_phrases]
@@ -20,10 +15,17 @@ def create_intent(project_id, display_name, training_phrases, message_texts):
         messages=[message]
     )
     response = intents_client.create_intent(request={"parent": parent, "intent": intent})
-    print(f"Intent created: {response.display_name}")
+    return response.display_name
+
+
+def main() -> None:
+    from dotenv import load_dotenv
+    load_dotenv()
+    project_id = os.environ['DIALOGFLOW_PROJECT_ID']
+    with open('job_questions.json', 'r', encoding='utf-8') as f:
+        intent_data = json.load(f)
+    create_intent(project_id, intent_data['intent_name'], intent_data['training_phrases'], [intent_data['response']])
 
 
 if __name__ == '__main__':
-    with open('job_questions.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    create_intent(project_id, data['intent_name'], data['training_phrases'], [data['response']])
+    main()

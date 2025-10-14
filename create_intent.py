@@ -2,6 +2,7 @@ from google.cloud import dialogflow
 import os
 import json
 from typing import List
+from dotenv import load_dotenv
 
 
 def create_intent(project_id: str, display_name: str, training_phrases: List[str], message_texts: List[str]) -> str:
@@ -18,13 +19,17 @@ def create_intent(project_id: str, display_name: str, training_phrases: List[str
     return response.display_name
 
 
-def main() -> None:
-    from dotenv import load_dotenv
+def main():
     load_dotenv()
     project_id = os.environ['DIALOGFLOW_PROJECT_ID']
     with open('job_questions.json', 'r', encoding='utf-8') as f:
         intent_data = json.load(f)
-    create_intent(project_id, intent_data['intent_name'], intent_data['training_phrases'], [intent_data['response']])
+    
+    try:
+        create_intent(project_id, intent_data['intent_name'], intent_data['training_phrases'], [intent_data['response']])
+    except Exception as e:
+        print(f"Ошибка при создании интента: {e}")
+        raise
 
 
 if __name__ == '__main__':
